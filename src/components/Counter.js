@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {
+    // state 핸들러 example
 
     state = {
         number:0
@@ -20,12 +21,13 @@ class Counter extends Component {
 
     render(){
         return(
-        <div>
-        <h1>카운터</h1>
-        <div>value: {this.state.number}</div>
-        <button onClick={this.plus}>+</button>
-        <button onClick={this.minus}>-</button>
-        </div>
+        <>
+            <h1>카운터</h1>
+            <div>value: {this.state.number}
+                <button onClick={this.plus}>+</button>
+                <button onClick={this.minus}>-</button>
+            </div>
+        </>
         );
     }
 }
