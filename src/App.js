@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Counter from './components/Counter.js';
 import PhoneForm from './components/PhoneForm.js';
+import PhoneInfoList from './components/PhoneInfoList';
 
 class App extends Component {
   id = 2
@@ -14,7 +15,7 @@ class App extends Component {
       },
       {
         id: 1,
-        name: '홍길동',
+        name: '사람',
         phone: '010-0000-0001'
       },
     ]
@@ -25,16 +26,40 @@ class App extends Component {
       information: information.concat({ id: this.id++, ...data})
     })
   }
-  render(){
+  handleRemove = (id) => {
+    const {information} = this.state;
+    this.setState({
+      information: information.filter(info => info.id !== id)
+    })
+  }
+  handleUpdate = (id, data) => {
+    const { information} = this.state;
+    this.setState({
+    information: information.map(
+        info => id === info.id
+        ? {...info, ...data}
+        : info
+      )
+    });
+
+  }
+
+  render() {
     const { information } = this.state;
     return (
-      <div className="App">
-          <Counter />
-          <PhoneForm onCreate={this.handleCreate} />
-          {JSON.stringify(information)}
+      <div>
+        <PhoneForm
+          onCreate={this.handleCreate}
+        />
+        <PhoneInfoList 
+          data={information}
+          onRemove={this.handleRemove}
+          onUpdate={this.handleUpdate}
+        />
       </div>
     );
   }
+
 }
 
 export default App;
